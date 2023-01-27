@@ -22,7 +22,7 @@ public struct GamifiedView: View {
             VStack(alignment: .leading) {
                 // Counters
                 if !viewModel.configuration.counters.isEmpty {
-                    Text("stats_counts")
+                    Text(LocalizedStringKey("stats_counts"), bundle: .module)
                         .font(.title)
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150, maximum: 300))]) {
                         ForEach(viewModel.configuration.counters, id: \.text) { counter in
@@ -38,10 +38,10 @@ public struct GamifiedView: View {
                 
                 // Grid
                 if viewModel.configuration.isGridEnabled {
-                    Text("stats_grid")
+                    Text(LocalizedStringKey("stats_grid"), bundle: .module)
                         .font(.title)
                         .padding(.top)
-                    Text("stats_grid_description")
+                    Text(LocalizedStringKey("stats_grid_description"), bundle: .module)
                         .padding(.vertical, 4)
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 300, maximum: 500))]) {
                         HStack {
@@ -57,7 +57,7 @@ public struct GamifiedView: View {
                 
                 // Graph
                 if !viewModel.configuration.graphs.isEmpty {
-                    Text("stats_graphs")
+                    Text(LocalizedStringKey("stats_graphs"), bundle: .module)
                         .font(.title)
                         .padding(.top)
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 300, maximum: 500))]) {
@@ -70,7 +70,7 @@ public struct GamifiedView: View {
             }
             .padding()
         }
-        .navigationTitle(Text("stats"))
+        .navigationTitle(Text(LocalizedStringKey("stats"), bundle: .module))
         .onAppear(perform: viewModel.onAppear)
     }
     

@@ -118,7 +118,7 @@ public struct GraphView: View {
                     )
                 }
             } else {
-                Text("stats_graph_no_data")
+                Text(LocalizedStringKey("stats_graph_no_data"), bundle: .module)
                     .foregroundColor(.secondary)
             }
         }
