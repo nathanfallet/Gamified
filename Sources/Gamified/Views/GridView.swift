@@ -14,8 +14,7 @@ public struct GridView: View {
     
     let stats: [Stats]
     
-    public init(graphs: [Graph]) {
-        let start = Date.previous17Weeks
+    public init(graphs: [Graph], start: Date = .previous17Weeks) {
         let end = Date()
         
         let raw = graphs.flatMap(\.stats)
@@ -26,8 +25,7 @@ public struct GridView: View {
         }) ?? []
     }
     
-    public init(stats: [Stats]) {
-        let start = Date.previous17Weeks
+    public init(stats: [Stats], start: Date = .previous17Weeks) {
         let end = Date()
         
         self.stats = start.nextStartOfWeek?.getDays(until: end)?.map({ day in
