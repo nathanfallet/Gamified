@@ -20,7 +20,7 @@ public struct CounterView: View {
                 Image(icon)
                     .resizable()
                     .frame(width: 44, height: 44)
-                Text(text.localized().format(count))
+                Text(text.format(count))
             }
             Spacer(minLength: 0)
         }

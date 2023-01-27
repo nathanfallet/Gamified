@@ -19,6 +19,10 @@ public extension Date {
         Calendar.current.date(byAdding: .day, value: -48, to: Date()) ?? Date()
     }
     
+    static var previous4Weeks: Date {
+        Calendar.current.date(byAdding: .day, value: -28, to: Date()) ?? Date()
+    }
+    
     static var nextYear: Date {
         Calendar.current.date(byAdding: .day, value: 365, to: Date()) ?? Date()
     }

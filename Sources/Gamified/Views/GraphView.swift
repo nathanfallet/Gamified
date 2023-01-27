@@ -21,9 +21,14 @@ public struct GraphView: View {
     // Initializer
     
     public init(graph: Graph) {
+        // Filter/fill data for 4 weeks
+        let start = Date.previous4Weeks
+        let end = Date()
         self.graph = Graph(
             title: graph.title,
-            stats: graph.stats.suffix(28)
+            stats: start.getDays(until: end)?.map({ day in
+                graph.stats.first(where: { $0.day == day.asString }) ?? Stats(day: day.asString, value: 0)
+            }) ?? []
         )
         
         // Map to sets
