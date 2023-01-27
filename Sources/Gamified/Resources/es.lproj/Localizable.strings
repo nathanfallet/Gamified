@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  
+
+  Created by Nathan Fallet on 27/01/2023.
+  
+*/
+
+"stats" = "Estadísticas";
+"stats_counts" = "Sumas";
+"stats_grid" = "Cuadro";
+"stats_grid_description" = "Muestra un resumen de tu actividad.";
+"stats_graphs" = "Gráfico";
+"stats_graph_no_data" = "No dato";
