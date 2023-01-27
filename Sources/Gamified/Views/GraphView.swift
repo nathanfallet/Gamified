@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GraphView: View {
+public struct GraphView: View {
     
     // Properties
     
@@ -20,7 +20,7 @@ struct GraphView: View {
     
     // Initializer
     
-    init(graph: Graph) {
+    public init(graph: Graph) {
         self.graph = Graph(
             title: graph.title,
             stats: graph.stats.suffix(28)
@@ -43,7 +43,7 @@ struct GraphView: View {
     }
     
     // Body
-    var body: some View {
+    public var body: some View {
         VStack {
             topSection
             graphSection

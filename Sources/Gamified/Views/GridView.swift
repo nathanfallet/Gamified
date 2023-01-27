@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct GridView: View {
+public struct GridView: View {
     
     let rows = 7
     var columns: Int { ((stats.count - 1) / rows) + 1 }
     
     let stats: [Stats]
     
-    init(graphs: [Graph]) {
+    public init(graphs: [Graph]) {
         let start = Date.previous17Weeks
         let end = Date()
         
@@ -26,7 +26,18 @@ struct GridView: View {
         }) ?? []
     }
     
-    var body: some View {
+    public init(stats: [Stats]) {
+        let start = Date.previous17Weeks
+        let end = Date()
+        
+        self.stats = start.nextStartOfWeek?.getDays(until: end)?.map({ day in
+            stats.filter { $0.day == day.asString }.reduce(Stats(day: day.asString, value: 0)) {
+                Stats(day: $0.day, value: $0.value + $1.value)
+            }
+        }) ?? []
+    }
+    
+    public var body: some View {
         HStack(spacing: 4) {
             ForEach(0 ..< columns, id: \.self) { column in
                 VStack(spacing: 4) {

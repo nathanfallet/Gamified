@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct CounterView: View {
+public struct CounterView: View {
     
     let icon: String
     let text: String
     let count: Int
 
-    var body: some View {
+    public var body: some View {
         HStack {
             Spacer(minLength: 0)
             VStack(spacing: 12) {
