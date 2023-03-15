@@ -11,13 +11,17 @@ public struct GamifiedService {
     
     // MARK: - Storage
     
+    private let globalStorage: GlobalStorageService
+    private let dailyStorage: DailyStorageService
     
     // MARK: - Initializer
     
     public init(
-        
+        globalStorage: GlobalStorageService,
+        dailyStorage: DailyStorageService
     ) {
-        
+        self.globalStorage = globalStorage
+        self.dailyStorage = dailyStorage
     }
     
     // MARK: - Stats
@@ -28,20 +32,19 @@ public struct GamifiedService {
     ///   - date: The day to fetch
     /// - Returns: The value of the stats
     public func getStats(_ key: String, for date: Date = Date()) -> Int {
-        // TODO: Implement this (using storage)
-        return 0
+        return dailyStorage.getValue(key, for: date)
     }
     
-    /// Set a stats for today
+    /// Set a stats for a day
     /// - Parameters:
     ///   - key: The stats to set
     ///   - value: The value to set
     ///   - date: The day to set
     public func setStats(_ key: String, value: Int, for date: Date = Date()) {
-        // TODO: Implement this (using storage)
+        dailyStorage.setValue(key, value: value, for: date)
     }
     
-    /// Increment a stats for today
+    /// Increment a stats for a day
     /// - Parameters:
     ///   - key: The stats to increment
     ///   - value: The value to add
@@ -57,8 +60,14 @@ public struct GamifiedService {
     ///   - endDate: The ending date
     /// - Returns: The graph corresponding to this stats between startDate and endDate
     public func getGraph(_ key: String, startDate: Date, endDate: Date) -> Graph {
-        // TODO: Implement this (using storage)
-        return Graph(title: key, stats: [])
+        return Graph(
+            title: key,
+            stats: dailyStorage
+                .getValues(key, startDate: startDate, endDate: endDate)
+                .map { date, value in
+                    Stats(day: date, value: value)
+                }
+        )
     }
     
     // MARK: - Values
@@ -67,8 +76,7 @@ public struct GamifiedService {
     /// - Parameter key: The value to get
     /// - Returns: The value
     public func getValue(_ key: String) -> Int {
-        // TODO: Implement this (using storage)
-        return 0
+        return globalStorage.getValue(key)
     }
     
     /// Set a value
@@ -76,7 +84,7 @@ public struct GamifiedService {
     ///   - key: The value to set
     ///   - value: The value to set
     public func setValue(_ key: String, value: Int) {
-        // TODO: Implement this (using storage)
+        globalStorage.setValue(key, value: value)
     }
     
     /// Increment a value

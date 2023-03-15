@@ -19,7 +19,7 @@ public struct GridView: View {
         
         let raw = graphs.flatMap(\.stats)
         self.stats = start.nextStartOfWeek?.getDays(until: end)?.map({ day in
-            raw.filter { $0.day == day.asString }.reduce(Stats(day: day.asString, value: 0)) {
+            raw.filter { $0.day.asString == day.asString }.reduce(Stats(day: day, value: 0)) {
                 Stats(day: $0.day, value: $0.value + $1.value)
             }
         }) ?? []
@@ -29,7 +29,7 @@ public struct GridView: View {
         let end = Date()
         
         self.stats = start.nextStartOfWeek?.getDays(until: end)?.map({ day in
-            stats.filter { $0.day == day.asString }.reduce(Stats(day: day.asString, value: 0)) {
+            stats.filter { $0.day.asString == day.asString }.reduce(Stats(day: day, value: 0)) {
                 Stats(day: $0.day, value: $0.value + $1.value)
             }
         }) ?? []
