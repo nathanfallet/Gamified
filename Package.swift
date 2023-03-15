@@ -14,10 +14,13 @@ let package = Package(
         .library(
             name: "Gamified",
             targets: ["Gamified"]),
+        .library(
+            name: "GamifiedSQLite",
+            targets: ["GamifiedSQLite"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.14.1")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -26,6 +29,12 @@ let package = Package(
             name: "Gamified",
             dependencies: [],
             resources: [.process("Resources")]),
+        .target(
+            name: "GamifiedSQLite",
+            dependencies: [
+                .target(name: "Gamified"),
+                .product(name: "SQLite", package: "SQLite.swift")
+            ]),
         .testTarget(
             name: "GamifiedTests",
             dependencies: ["Gamified"]),

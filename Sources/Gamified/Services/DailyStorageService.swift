@@ -9,6 +9,10 @@ import Foundation
 
 public protocol DailyStorageService {
     
+    /// Setup the storage to handle a daily value for this key
+    /// - Parameter key: The key for this daily value
+    func setupValue(_ key: String)
+    
     /// Get a value
     /// - Parameters:
     ///   - key: The value to get

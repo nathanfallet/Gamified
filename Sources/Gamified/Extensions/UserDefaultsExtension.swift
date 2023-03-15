@@ -10,11 +10,11 @@ import Foundation
 extension UserDefaults: GlobalStorageService {
     
     public func getValue(_ key: String) -> Int {
-        integer(forKey: key)
+        integer(forKey: "gamified_\(key)")
     }
     
     public func setValue(_ key: String, value: Int) {
-        set(value, forKey: key)
+        set(value, forKey: "gamified_\(key)")
     }
     
 }
