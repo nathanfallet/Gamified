@@ -7,25 +7,39 @@
 
 import SwiftUI
 
-public struct GamifiedView: View {
+public struct StatsView: View {
     
-    @StateObject var viewModel: GamifiedViewModel
+    @StateObject var viewModel: StatsViewModel
     
-    /// Create a Gamified view
-    /// - Parameter configuration: The configuration for the view
-    public init(configuration: GamifiedConfig) {
-        self._viewModel = StateObject(wrappedValue: GamifiedViewModel(configuration: configuration))
+    /// Create a Stats view
+    /// - Parameters:
+    ///   - service: Gamified service used as source for data
+    ///   - counters: Counters shown in the view
+    ///   - isGridEnabled: If the grid should be shown in the view
+    ///   - onAppear: Custom action called when the view appears (optional)
+    public init(
+        service: GamifiedService,
+        counters: [Counter],
+        isGridEnabled: Bool,
+        onAppear: @escaping () -> Void = {}
+    ) {
+        self._viewModel = StateObject(wrappedValue: StatsViewModel(
+            service: service,
+            counters: counters,
+            isGridEnabled: isGridEnabled,
+            onAppear: onAppear
+        ))
     }
     
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 // Counters
-                if !viewModel.configuration.counters.isEmpty {
+                if !viewModel.counters.isEmpty {
                     Text(LocalizedStringKey("stats_counts"), bundle: .module)
                         .font(.title)
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150, maximum: 300))]) {
-                        ForEach(viewModel.configuration.counters, id: \.text) { counter in
+                        ForEach(viewModel.counters, id: \.text) { counter in
                             CounterView(
                                 icon: counter.icon,
                                 text: counter.text,
@@ -37,7 +51,7 @@ public struct GamifiedView: View {
                 }
                 
                 // Grid
-                if viewModel.configuration.isGridEnabled {
+                if viewModel.isGridEnabled {
                     Text(LocalizedStringKey("stats_grid"), bundle: .module)
                         .font(.title)
                         .padding(.top)
@@ -46,7 +60,7 @@ public struct GamifiedView: View {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 300, maximum: 500))]) {
                         HStack {
                             Spacer(minLength: 0)
-                            GridView(graphs: viewModel.configuration.graphs)
+                            GridView(graphs: viewModel.graphs)
                                 .frame(height: 136)
                                 .frame(maxWidth: 336)
                             Spacer(minLength: 0)
@@ -56,12 +70,12 @@ public struct GamifiedView: View {
                 }
                 
                 // Graph
-                if !viewModel.configuration.graphs.isEmpty {
+                if !viewModel.graphs.isEmpty {
                     Text(LocalizedStringKey("stats_graphs"), bundle: .module)
                         .font(.title)
                         .padding(.top)
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 300, maximum: 500))]) {
-                        ForEach(viewModel.configuration.graphs, id: \.title) { graph in
+                        ForEach(viewModel.graphs, id: \.title) { graph in
                             GraphView(graph: graph)
                                 .cardView()
                         }

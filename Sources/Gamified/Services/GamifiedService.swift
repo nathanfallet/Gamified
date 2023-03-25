@@ -7,21 +7,27 @@
 
 import Foundation
 
-public struct GamifiedService {
+public class GamifiedService {
     
     // MARK: - Storage
     
     private let globalStorage: GlobalStorageService
     private let dailyStorage: DailyStorageService
     
+    /// Keys of registered stats
+    public private(set) var registeredStats = [String]()
+    
     // MARK: - Initializer
     
     public init(
         globalStorage: GlobalStorageService,
-        dailyStorage: DailyStorageService
+        dailyStorage: DailyStorageService,
+        registeredStats: [String]
     ) {
         self.globalStorage = globalStorage
         self.dailyStorage = dailyStorage
+        
+        registeredStats.forEach(registerStats)
     }
     
     // MARK: - Stats
@@ -51,6 +57,13 @@ public struct GamifiedService {
     ///   - date: The day to set
     public func incrementStats(_ key: String, by value: Int = 1, for date: Date = Date()) {
         setStats(key, value: getStats(key, for: date) + value, for: date)
+    }
+    
+    /// Register a stats
+    /// - Parameter key: The stats to register
+    public func registerStats(_ key: String) {
+        dailyStorage.setupValue(key)
+        registeredStats.append(key)
     }
     
     /// Get a graph for stats
