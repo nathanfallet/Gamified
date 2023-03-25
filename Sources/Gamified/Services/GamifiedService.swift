@@ -108,6 +108,34 @@ public class GamifiedService {
         setValue(key, value: getValue(key) + value)
     }
     
+    // MARK: - Experience
+    
+    /// Get information about experience and level
+    /// - Returns: An object with all that information
+    public func getExperience() -> Experience {
+        return Experience(total: getValue("internal_experience"))
+    }
+    
+    @discardableResult
+    /// Add experience to current level
+    /// - Parameter exp: The amount of experience to add
+    /// - Returns: A tuple containing experience information before and after that experience is added
+    public func gainExperience(_ exp: Int) -> (Experience, Experience) {
+        let previousExperience = getExperience()
+        let newExperience = Experience(total: previousExperience.total + exp)
+        setValue("internal_experience", value: newExperience.total)
+        NotificationCenter.default.post(
+            name: .experienceGained,
+            object: nil,
+            userInfo: [
+                "previousExperience": previousExperience,
+                "newExperience": newExperience
+            ]
+        )
+        
+        return (previousExperience, newExperience)
+    }
+    
     // MARK: - Achievements
     
     
