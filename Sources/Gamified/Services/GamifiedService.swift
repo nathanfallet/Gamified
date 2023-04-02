@@ -83,6 +83,17 @@ public class GamifiedService {
         )
     }
     
+    /// Get graphs' stats
+    /// - Parameters:
+    ///   - startDate: The starting date
+    ///   - endDate: The ending date
+    /// - Returns: All graphs' stats between startDate and endDate
+    public func getGraphs(startDate: Date, endDate: Date) -> [Graph] {
+        return registeredStats.map { key in
+            getGraph(key, startDate: startDate, endDate: endDate)
+        }
+    }
+    
     // MARK: - Values
     
     /// Get a value

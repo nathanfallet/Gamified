@@ -29,9 +29,7 @@ class StatsViewModel: ObservableObject {
         self.counters = counters
         self.isGridEnabled = isGridEnabled
         self.onAppear = onAppear
-        self.graphs = service.registeredStats.map { key in
-            service.getGraph(key, startDate: .previous17Weeks, endDate: Date())
-        }
+        self.graphs = service.getGraphs(startDate: .previous17Weeks, endDate: Date())
     }
     
 }

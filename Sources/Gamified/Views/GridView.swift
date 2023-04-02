@@ -25,16 +25,6 @@ public struct GridView: View {
         }) ?? []
     }
     
-    public init(stats: [Stats], start: Date = .previous17Weeks) {
-        let end = Date()
-        
-        self.stats = start.nextStartOfWeek?.getDays(until: end)?.map({ day in
-            stats.filter { $0.day.asString == day.asString }.reduce(Stats(day: day, value: 0)) {
-                Stats(day: $0.day, value: $0.value + $1.value)
-            }
-        }) ?? []
-    }
-    
     public var body: some View {
         HStack(spacing: 4) {
             ForEach(0 ..< columns, id: \.self) { column in
