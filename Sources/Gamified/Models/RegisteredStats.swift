@@ -15,7 +15,7 @@ public struct RegisteredStats {
     /// Name of the stats
     public var name: String
     
-    /// Create a graph
+    /// Create a registered stats
     /// - Parameters:
     ///   - key: Key of the graph
     ///   - name: Name of the graph

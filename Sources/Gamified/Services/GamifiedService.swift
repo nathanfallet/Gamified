@@ -14,20 +14,25 @@ public class GamifiedService {
     private let globalStorage: GlobalStorageService
     private let dailyStorage: DailyStorageService
     
-    /// Keys of registered stats
+    /// Registered stats
     public private(set) var registeredStats = [RegisteredStats]()
+    
+    /// Registered achievements
+    public private(set) var registeredAchievements = [RegisteredAchievement]()
     
     // MARK: - Initializer
     
     public init(
         globalStorage: GlobalStorageService,
         dailyStorage: DailyStorageService,
-        registeredStats: [RegisteredStats]
+        registeredStats: [RegisteredStats],
+        registeredAchievements: [RegisteredAchievement]
     ) {
         self.globalStorage = globalStorage
         self.dailyStorage = dailyStorage
         
         registeredStats.forEach(registerStats)
+        registeredAchievements.forEach(registerAchievement)
     }
     
     // MARK: - Stats
@@ -150,6 +155,24 @@ public class GamifiedService {
     
     // MARK: - Achievements
     
+    /// Register an achievement
+    /// - Parameter key: The achievement to register
+    public func registerAchievement(_ key: RegisteredAchievement) {
+        registeredAchievements.append(key)
+    }
     
+    /// Get actual data for registered achievements
+    /// - Returns: Data for registered achievements
+    public func getAchievements() -> [Achievement] {
+        return registeredAchievements.map { key in
+            Achievement(
+                key: key.key,
+                icon: key.icon,
+                text: key.name,
+                value: getValue(key.key),
+                target: key.target
+            )
+        }
+    }
     
 }

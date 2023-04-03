@@ -40,12 +40,8 @@ public struct StatsView: View {
                         .font(.title)
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150, maximum: 300))]) {
                         ForEach(viewModel.counters, id: \.text) { counter in
-                            CounterView(
-                                icon: counter.icon,
-                                text: counter.text,
-                                count: counter.count
-                            )
-                            .cardView()
+                            CounterView(counter: counter)
+                                .cardView()
                         }
                     }
                 }

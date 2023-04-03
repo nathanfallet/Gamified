@@ -13,4 +13,6 @@
 "stats_graphs" = "Graphiques";
 "stats_graph_no_data" = "Pas de données";
 "banner_experience_gained" = "Expérience gagnée !";
-"banner_experience_gained_level %d" = "Niveau %d";
+"banner_experience_gained_level %lld" = "Niveau %lld";
+"profile" = "Profil de jeu";
+"profile_achievements" = "Trophés";

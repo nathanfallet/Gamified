@@ -9,18 +9,16 @@ import SwiftUI
 
 public struct CounterView: View {
     
-    let icon: String
-    let text: String
-    let count: Int
+    let counter: Counter
 
     public var body: some View {
         HStack {
             Spacer(minLength: 0)
             VStack(spacing: 12) {
-                Image(icon)
+                Image(counter.icon)
                     .resizable()
                     .frame(width: 44, height: 44)
-                Text(String(format: text, locale: .current, arguments: [count]))
+                Text(String(format: counter.text, locale: .current, arguments: [counter.count]))
             }
             Spacer(minLength: 0)
         }
