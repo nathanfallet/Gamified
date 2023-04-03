@@ -25,6 +25,7 @@ public struct GraphView: View {
         let start = Date.previous4Weeks
         let end = Date()
         self.graph = Graph(
+            key: graph.key,
             title: graph.title,
             stats: start.getDays(until: end)?.map({ day in
                 graph.stats.first(where: { $0.day.asString == day.asString }) ?? Stats(day: day, value: 0)
@@ -65,7 +66,7 @@ public struct GraphView: View {
                 Spacer()
                 Text(String(graphData[index].1))
             } else {
-                Text(LocalizedStringKey("stats_graph_\(graph.title)"))
+                Text(graph.title)
                 Spacer()
                 Text(String(summedData))
             }

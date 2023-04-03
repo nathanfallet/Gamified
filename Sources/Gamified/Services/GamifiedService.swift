@@ -15,14 +15,14 @@ public class GamifiedService {
     private let dailyStorage: DailyStorageService
     
     /// Keys of registered stats
-    public private(set) var registeredStats = [String]()
+    public private(set) var registeredStats = [RegisteredStats]()
     
     // MARK: - Initializer
     
     public init(
         globalStorage: GlobalStorageService,
         dailyStorage: DailyStorageService,
-        registeredStats: [String]
+        registeredStats: [RegisteredStats]
     ) {
         self.globalStorage = globalStorage
         self.dailyStorage = dailyStorage
@@ -61,8 +61,8 @@ public class GamifiedService {
     
     /// Register a stats
     /// - Parameter key: The stats to register
-    public func registerStats(_ key: String) {
-        dailyStorage.setupValue(key)
+    public func registerStats(_ key: RegisteredStats) {
+        dailyStorage.setupValue(key.key)
         registeredStats.append(key)
     }
     
@@ -74,7 +74,8 @@ public class GamifiedService {
     /// - Returns: The graph corresponding to this stats between startDate and endDate
     public func getGraph(_ key: String, startDate: Date, endDate: Date) -> Graph {
         return Graph(
-            title: key,
+            key: key,
+            title: registeredStats.first(where: { $0.key == key })?.name ?? "Unknown",
             stats: dailyStorage
                 .getValues(key, startDate: startDate, endDate: endDate)
                 .map { date, value in
@@ -90,7 +91,7 @@ public class GamifiedService {
     /// - Returns: All graphs' stats between startDate and endDate
     public func getGraphs(startDate: Date, endDate: Date) -> [Graph] {
         return registeredStats.map { key in
-            getGraph(key, startDate: startDate, endDate: endDate)
+            getGraph(key.key, startDate: startDate, endDate: endDate)
         }
     }
     
