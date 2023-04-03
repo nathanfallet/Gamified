@@ -23,9 +23,9 @@ public struct BannerViewModifier: ViewModifier {
                         switch type {
                         case "experienceGained":
                             HStack {
-                                Text("Experience gained!")
+                                Text(LocalizedStringKey("banner_experience_gained"), bundle: .module)
                                 Spacer()
-                                Text("Level \(viewModel.progressBarLevel ?? 0)")
+                                Text(LocalizedStringKey("banner_experience_gained_level \(viewModel.progressBarLevel ?? 0)"), bundle: .module)
                             }
                             ProgressView(
                                 value: Double(viewModel.progressBarValue ?? 0),
@@ -36,6 +36,7 @@ public struct BannerViewModifier: ViewModifier {
                         }
                     }
                         .cardView()
+                        .padding()
                         .transition(AnyTransition.move(edge: .top).combined(with: .opacity))
                         .onAppear {
                             withAnimation {
