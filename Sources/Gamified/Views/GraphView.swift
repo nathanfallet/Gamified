@@ -65,7 +65,7 @@ public struct GraphView: View {
                 Spacer()
                 Text(String(graphData[index].1))
             } else {
-                Text(LocalizedStringKey("stats_graph_\(graph.title)"), bundle: .module)
+                Text(LocalizedStringKey("stats_graph_\(graph.title)"))
                 Spacer()
                 Text(String(summedData))
             }
