@@ -36,7 +36,7 @@ extension Connection: DailyStorageService {
     
     public func getValue(_ key: String, for date: Date) -> Int {
         do {
-            return try prepare(table(key).select(day, value).where(day.date == date)).map { row in
+            return try prepare(table(key).select(day, value).where(day == date.asString)).map { row in
                 try row.get(value)
             }.first ?? 0
         } catch {
