@@ -29,8 +29,24 @@ public struct GameProfileView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 // Header
-                Text("Header")
-                    .cardView()
+                HStack {
+                    Image("")
+                        .resizable()
+                        .frame(width: 44, height: 44)
+                        .cornerRadius(22)
+                    VStack {
+                        HStack {
+                            Text("Name")
+                            Spacer()
+                            Text(LocalizedStringKey("banner_experience_gained_level \(viewModel.experience.level)"), bundle: .module)
+                        }
+                        ProgressView(
+                            value: Double(viewModel.experience.current),
+                            total: Double(viewModel.experience.toNextLevel)
+                        )
+                    }
+                }
+                .cardView()
                 
                 // Achievements
                 Text(LocalizedStringKey("profile_achievements"), bundle: .module)

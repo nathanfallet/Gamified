@@ -17,9 +17,15 @@ public struct AchievementView: View {
             VStack(spacing: 12) {
                 Image(achievement.icon)
                     .resizable()
+                    .saturation(achievement.value < achievement.target ? 0.0 : 1.0)
                     .frame(width: 44, height: 44)
                 Text(achievement.text)
-                // TODO: Add a progress bar if needed, and change image color if not unlocked
+                if achievement.target > 1 {
+                    ProgressView(
+                        value: Double(achievement.value),
+                        total: Double(achievement.target)
+                    )
+                }
             }
             Spacer(minLength: 0)
         }

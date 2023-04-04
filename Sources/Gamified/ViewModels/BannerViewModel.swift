@@ -17,15 +17,45 @@ class BannerViewModel: ObservableObject {
     @Published var progressBarTotal: Double?
     @Published var progressBarLevel: Int?
     
+    // Achivement unlocked data
+    @Published var achievementName: String?
+    @Published var achievementIcon: String?
+    
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(experienceGained), name: .experienceGained, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(experienceGained),
+            name: .experienceGained,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(achievementUnlocked),
+            name: .achievementUnlocked,
+            object: nil
+        )
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
+    func checkForNotificationInProgress(_ action: @escaping (NSNotification) -> Void, notification: NSNotification) -> Bool {
+        if type != nil {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                action(notification)
+            }
+            return true
+        }
+        return false
+    }
+    
     @objc func experienceGained(_ notification: NSNotification) {
+        // Check that no notification is already shown. Else, delay
+        if checkForNotificationInProgress(experienceGained, notification: notification) {
+            return
+        }
+        
         // Set base data
         type = "experienceGained"
         let previousExperience = notification.userInfo?["previousExperience"] as? Experience
@@ -52,6 +82,19 @@ class BannerViewModel: ObservableObject {
                 timer.invalidate()
             }
         }
+    }
+    
+    @objc func achievementUnlocked(_ notification: NSNotification) {
+        // Check that no notification is already shown. Else, delay
+        if checkForNotificationInProgress(achievementUnlocked, notification: notification) {
+            return
+        }
+        
+        // Set base data
+        type = "achievementUnlocked"
+        let achievement = notification.userInfo?["achievement"] as? RegisteredAchievement
+        achievementName = achievement?.name
+        achievementIcon = achievement?.icon
     }
     
 }

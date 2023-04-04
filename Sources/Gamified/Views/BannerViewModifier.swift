@@ -31,6 +31,16 @@ public struct BannerViewModifier: ViewModifier {
                                 value: Double(viewModel.progressBarValue ?? 0),
                                 total: Double(viewModel.progressBarTotal ?? 0)
                             )
+                        case "achievementUnlocked":
+                            HStack {
+                                Image(viewModel.achievementIcon ?? "")
+                                    .resizable()
+                                    .frame(width: 44, height: 44)
+                                VStack(alignment: .leading) {
+                                    Text(LocalizedStringKey("banner_achievement_unlocked"), bundle: .module)
+                                    Text(viewModel.achievementName ?? "Unknown")
+                                }
+                            }
                         default:
                             EmptyView()
                         }
@@ -64,6 +74,9 @@ struct BannerViewModifier_Preview: PreviewProvider {
                 }
                 Button("Experience 2") {
                     NotificationCenter.default.post(name: .experienceGained, object: nil, userInfo: ["previousExperience": Experience(total: 4), "newExperience": Experience(total: 10)])
+                }
+                Button("Achievement") {
+                    NotificationCenter.default.post(name: .achievementUnlocked, object: nil, userInfo: ["achievement": RegisteredAchievement(key: "test", name: "Test", icon: "", target: 10, experience: 1)])
                 }
             }
         }

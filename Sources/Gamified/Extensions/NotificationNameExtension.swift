@@ -10,5 +10,6 @@ import Foundation
 public extension Notification.Name {
     
     static let experienceGained = Notification.Name("me.nathanfallet.gamified.experienceGained")
+    static let achievementUnlocked = Notification.Name("me.nathanfallet.gamified.achievementUnlocked")
     
 }

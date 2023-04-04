@@ -113,8 +113,26 @@ public class GamifiedService {
     /// - Parameters:
     ///   - key: The value to set
     ///   - value: The value to set
-    public func setValue(_ key: String, value: Int) {
-        globalStorage.setValue(key, value: value)
+    ///   - incrementing: If the value should be added or replaced
+    public func setValue(_ key: String, value: Int, incrementing: Bool = false) {
+        // Save value
+        let previousValue = getValue(key)
+        let newValue = incrementing ? previousValue + value : value
+        globalStorage.setValue(key, value: newValue)
+        
+        // Check for achievements
+        registeredAchievements.filter {
+            key == $0.key && previousValue < $0.target && newValue >= $0.target
+        }.forEach { achievement in
+            NotificationCenter.default.post(
+                name: .achievementUnlocked,
+                object: nil,
+                userInfo: [
+                    "achievement": achievement
+                ]
+            )
+            gainExperience(achievement.experience)
+        }
     }
     
     /// Increment a value
@@ -122,7 +140,7 @@ public class GamifiedService {
     ///   - key: The value to increment
     ///   - value: The value to add
     public func incrementValue(_ key: String, by value: Int = 1) {
-        setValue(key, value: getValue(key) + value)
+        setValue(key, value: value, incrementing: true)
     }
     
     // MARK: - Experience

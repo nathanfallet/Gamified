@@ -21,22 +21,28 @@ public struct RegisteredAchievement {
     /// Target value to unlock this achievement
     public var target: Int
     
+    /// Experience given when achieved
+    public var experience: Int
+    
     /// Create a registered achievement
     /// - Parameters:
     ///   - key: Key of the achievement
     ///   - name: Name of the achievement
     ///   - icon: Icon shown in the achievement
     ///   - target: Target value to unlock this achievement
+    ///   - experience: Experience given when achieved
     public init(
         key: String,
         name: String,
         icon: String,
-        target: Int
+        target: Int,
+        experience: Int
     ) {
         self.key = key
         self.name = name
         self.icon = icon
         self.target = target
+        self.experience = experience
     }
     
 }

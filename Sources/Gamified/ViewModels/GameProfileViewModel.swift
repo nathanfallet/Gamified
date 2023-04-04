@@ -12,6 +12,7 @@ class GameProfileViewModel: ObservableObject {
     // Configuration
     
     let service: GamifiedService
+    let experience: Experience
     let achievements: [Achievement]
     let onAppear: () -> Void
     
@@ -22,7 +23,8 @@ class GameProfileViewModel: ObservableObject {
         onAppear: @escaping () -> Void = {}
     ) {
         self.service = service
-        self.achievements = []
+        self.experience = service.getExperience()
+        self.achievements = service.getAchievements()
         self.onAppear = onAppear
     }
     
