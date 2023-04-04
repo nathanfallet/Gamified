@@ -12,20 +12,21 @@ class GameProfileViewModel: ObservableObject {
     // Configuration
     
     let service: GamifiedService
+    let username: String?
+    let url: URL?
     let experience: Experience
     let achievements: [Achievement]
-    let onAppear: () -> Void
     
     // Initializer
     
     init(
-        service: GamifiedService,
-        onAppear: @escaping () -> Void = {}
+        service: GamifiedService
     ) {
         self.service = service
+        self.username = nil
+        self.url = nil
         self.experience = service.getExperience()
         self.achievements = service.getAchievements()
-        self.onAppear = onAppear
     }
     
 }

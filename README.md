@@ -8,3 +8,27 @@
 [![Open Source Helpers](https://www.codetriage.com/nathanfallet/gamified/badges/users.svg)](https://www.codetriage.com/nathanfallet/gamified)
 
 A swift package/android library to provide stats and gamification to your app.
+
+## Installation
+
+### iOS
+
+Add `https://github.com/NathanFallet/Gamified.git` to your Swift Package configuration (or using the Xcode menu: `File` > `Swift Packages` > `Add Package Dependency`)
+
+See the [full documentation](DOCUMENTATION_IOS.md) for usage.
+
+### Android
+
+Add the following to your `build.gradle` file:
+
+```groovy
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'me.nathanfallet.gamified:gamified:1.0.0'
+}
+```
+
+See the [full documentation](DOCUMENTATION_ANDROID.md) for usage.

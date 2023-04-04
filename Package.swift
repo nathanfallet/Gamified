@@ -20,6 +20,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.0.0"),
         .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.14.1")
     ],
     targets: [
@@ -27,7 +28,9 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Gamified",
-            dependencies: [],
+            dependencies: [
+                .product(name: "Kingfisher", package: "Kingfisher")
+            ],
             resources: [.process("Resources")]),
         .target(
             name: "GamifiedSQLite",

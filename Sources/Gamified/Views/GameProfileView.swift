@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 public struct GameProfileView: View {
     
@@ -16,12 +17,10 @@ public struct GameProfileView: View {
     ///   - service: Gamified service used as source for data
     ///   - onAppear: Custom action called when the view appears (optional)
     public init(
-        service: GamifiedService,
-        onAppear: @escaping () -> Void = {}
+        service: GamifiedService
     ) {
         self._viewModel = StateObject(wrappedValue: GameProfileViewModel(
-            service: service,
-            onAppear: onAppear
+            service: service
         ))
     }
     
@@ -30,14 +29,19 @@ public struct GameProfileView: View {
             VStack(alignment: .leading) {
                 // Header
                 HStack {
-                    Image("")
-                        .resizable()
-                        .frame(width: 44, height: 44)
-                        .cornerRadius(22)
+                    if let url = viewModel.url {
+                        KFImage(url)
+                            .placeholder({ Color.gray })
+                            .resizable()
+                            .frame(width: 44, height: 44)
+                            .cornerRadius(22)
+                    }
                     VStack {
                         HStack {
-                            Text("Name")
-                            Spacer()
+                            if let username = viewModel.username {
+                                Text(username)
+                                Spacer()
+                            }
                             Text(LocalizedStringKey("banner_experience_gained_level \(viewModel.experience.level)"), bundle: .module)
                         }
                         ProgressView(
@@ -62,7 +66,6 @@ public struct GameProfileView: View {
             .padding()
         }
         .navigationTitle(Text(LocalizedStringKey("profile"), bundle: .module))
-        .onAppear(perform: viewModel.onAppear)
     }
     
 }

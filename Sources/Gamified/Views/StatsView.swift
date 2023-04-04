@@ -20,14 +20,12 @@ public struct StatsView: View {
     public init(
         service: GamifiedService,
         counters: [Counter],
-        isGridEnabled: Bool,
-        onAppear: @escaping () -> Void = {}
+        isGridEnabled: Bool
     ) {
         self._viewModel = StateObject(wrappedValue: StatsViewModel(
             service: service,
             counters: counters,
-            isGridEnabled: isGridEnabled,
-            onAppear: onAppear
+            isGridEnabled: isGridEnabled
         ))
     }
     
@@ -81,7 +79,6 @@ public struct StatsView: View {
             .padding()
         }
         .navigationTitle(Text(LocalizedStringKey("stats"), bundle: .module))
-        .onAppear(perform: viewModel.onAppear)
     }
     
 }

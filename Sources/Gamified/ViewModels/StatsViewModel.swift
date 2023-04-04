@@ -15,20 +15,17 @@ class StatsViewModel: ObservableObject {
     let counters: [Counter]
     let graphs: [Graph]
     let isGridEnabled: Bool
-    let onAppear: () -> Void
     
     // Initializer
     
     init(
         service: GamifiedService,
         counters: [Counter],
-        isGridEnabled: Bool,
-        onAppear: @escaping () -> Void = {}
+        isGridEnabled: Bool
     ) {
         self.service = service
         self.counters = counters
         self.isGridEnabled = isGridEnabled
-        self.onAppear = onAppear
         self.graphs = service.getGraphs(startDate: .previous17Weeks, endDate: Date())
     }
     
