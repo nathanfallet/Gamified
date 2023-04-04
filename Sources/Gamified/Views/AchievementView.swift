@@ -18,7 +18,7 @@ public struct AchievementView: View {
                 Image(achievement.icon)
                     .resizable()
                     .saturation(achievement.value < achievement.target ? 0.0 : 1.0)
-                    .frame(width: 44, height: 44)
+                    .frame(width: 50, height: 50)
                 Text(achievement.text)
                 if achievement.target > 1 {
                     ProgressView(
