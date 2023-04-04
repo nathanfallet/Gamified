@@ -14,5 +14,6 @@
 "stats_graph_no_data" = "Pas de données";
 "banner_experience_gained" = "Expérience gagnée !";
 "banner_experience_gained_level %lld" = "Niveau %lld";
+"banner_achievement_unlocked" = "Trophé débloqué";
 "profile" = "Profil de jeu";
 "profile_achievements" = "Trophés";

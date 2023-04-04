@@ -14,5 +14,6 @@
 "stats_graph_no_data" = "No data";
 "banner_experience_gained" = "Experience gained!";
 "banner_experience_gained_level %lld" = "Level %lld";
+"banner_achievement_unlocked" = "Achievement unlocked";
 "profile" = "Gaming profile";
 "profile_achievements" = "Achievements";
