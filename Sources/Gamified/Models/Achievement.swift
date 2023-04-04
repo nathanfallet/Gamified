@@ -49,7 +49,7 @@ public struct Achievement: Identifiable {
         self.key = key
         self.icon = icon
         self.text = text
-        self.value = value
+        self.value = min(value, target)
         self.target = target
     }
     
