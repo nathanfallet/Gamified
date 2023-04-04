@@ -24,3 +24,11 @@ extension View {
     }
     
 }
+
+public extension View {
+    
+    func addingGameBanner() -> some View {
+        return self.modifier(BannerViewModifier())
+    }
+    
+}

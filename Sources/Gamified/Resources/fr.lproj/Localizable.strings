@@ -12,3 +12,7 @@
 "stats_grid_description" = "Affiche une vue d'ensemble de ton activité récente.";
 "stats_graphs" = "Graphiques";
 "stats_graph_no_data" = "Pas de données";
+"banner_experience_gained" = "Expérience gagnée !";
+"banner_experience_gained_level %lld" = "Niveau %lld";
+"profile" = "Profil de jeu";
+"profile_achievements" = "Trophés";

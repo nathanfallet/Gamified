@@ -25,9 +25,10 @@ public struct GraphView: View {
         let start = Date.previous4Weeks
         let end = Date()
         self.graph = Graph(
+            key: graph.key,
             title: graph.title,
             stats: start.getDays(until: end)?.map({ day in
-                graph.stats.first(where: { $0.day == day.asString }) ?? Stats(day: day.asString, value: 0)
+                graph.stats.first(where: { $0.day.asString == day.asString }) ?? Stats(day: day, value: 0)
             }) ?? []
         )
         
@@ -35,7 +36,7 @@ public struct GraphView: View {
         guard let max = self.graph.stats.map({ $0.value }).max(), max != 0
         else { return }
         self.graphData = self.graph.stats.map {(
-            $0.day.asDate ?? .distantPast,
+            $0.day,
             $0.value,
             CGFloat($0.value) / CGFloat(max)
         )}

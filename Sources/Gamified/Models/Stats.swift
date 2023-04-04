@@ -10,7 +10,7 @@ import Foundation
 public struct Stats {
     
     /// The day of the entry
-    public var day: String
+    public var day: Date
     
     /// The value of the entry
     public var value: Int
@@ -20,7 +20,7 @@ public struct Stats {
     ///   - day: The day of the entry
     ///   - value: The value of the entry
     public init(
-        day: String,
+        day: Date,
         value: Int
     ) {
         self.day = day
