@@ -51,6 +51,7 @@ public struct GameProfileView: View {
                 // Achievements
                 Text(LocalizedStringKey("profile_achievements"), bundle: .module)
                     .font(.title)
+                    .padding(.top)
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 150, maximum: 300))]) {
                     ForEach(viewModel.achievements) { achievement in
                         AchievementView(achievement: achievement)
