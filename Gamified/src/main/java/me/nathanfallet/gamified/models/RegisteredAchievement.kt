@@ -14,7 +14,7 @@ data class RegisteredAchievement(
     /**
      * Icon shown in the achievement
      */
-    val icon: String,
+    val icon: Int,
 
     /**
      * Target value to unlock this achievement

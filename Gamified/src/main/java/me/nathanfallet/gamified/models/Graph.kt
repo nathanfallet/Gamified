@@ -14,5 +14,5 @@ data class Graph(
     /**
      * Values of the graph
      */
-    val values: List<Stats>
+    val stats: List<Stats>
 )

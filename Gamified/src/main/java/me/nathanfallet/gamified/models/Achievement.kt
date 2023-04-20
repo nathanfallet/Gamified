@@ -9,7 +9,7 @@ data class Achievement(
     /**
      * Icon shown in the achievement
      */
-    var icon: String,
+    var icon: Int,
 
     /**
      * Text shown in the achievement

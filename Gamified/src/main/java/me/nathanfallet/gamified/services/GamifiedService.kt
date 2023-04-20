@@ -10,8 +10,22 @@ import java.util.Date
 
 class GamifiedService(
     private val globalStorage: GlobalStorageService,
-    private val dailyStorage: DailyStorageService
+    private val dailyStorage: DailyStorageService,
+    registeredStats: List<RegisteredStats>,
+    registeredAchievements: List<RegisteredAchievement>
 ) {
+
+    // MARK: - Shared instance
+
+    companion object {
+
+        /**
+         * Shared instance of the service, used by view models
+         */
+        @JvmStatic
+        lateinit var shared: GamifiedService
+
+    }
 
     // MARK: - Storage
 
@@ -29,6 +43,13 @@ class GamifiedService(
      */
     val registeredAchievements: List<RegisteredAchievement>
         get() = _registeredAchievements
+
+    // MARK: - Initializer
+
+    init {
+        registeredStats.forEach(this::registerStats)
+        registeredAchievements.forEach(this::registerAchievement)
+    }
 
     // MARK: - Stats
 
