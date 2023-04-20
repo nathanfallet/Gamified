@@ -250,7 +250,7 @@ class StatsActivity : AppCompatActivity() {
                 private val rows = 7
                 private val columns: Int
                     get() {
-                        return ((stats.size - 1) / rows) + 1
+                        return (stats.size - 1) / rows + 1
                     }
 
                 init {

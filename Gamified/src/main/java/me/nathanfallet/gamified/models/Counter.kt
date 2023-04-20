@@ -24,8 +24,7 @@ data class Counter(
         parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readLong()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(icon)

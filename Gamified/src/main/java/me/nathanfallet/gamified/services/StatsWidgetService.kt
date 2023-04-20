@@ -9,7 +9,6 @@ import me.nathanfallet.gamified.R
 import me.nathanfallet.gamified.extensions.asString
 import me.nathanfallet.gamified.extensions.getDays
 import me.nathanfallet.gamified.extensions.nextStartOfWeek
-import me.nathanfallet.gamified.extensions.previous17Weeks
 import me.nathanfallet.gamified.extensions.previous7Weeks
 import me.nathanfallet.gamified.models.Stats
 import java.util.Date
@@ -27,7 +26,7 @@ class StatsWidgetRemoteViewsFactory(val context: Context) : RemoteViewsService.R
     private val rows = 7
     private val columns: Int
         get() {
-            return ((stats.size - 1) / rows) + 1
+            return (stats.size - 1) / rows + 1
         }
 
     var stats: List<Stats> = listOf()
@@ -41,7 +40,7 @@ class StatsWidgetRemoteViewsFactory(val context: Context) : RemoteViewsService.R
         val end = Date()
 
         val raw = GamifiedService.shared.getGraphs(start, end).flatMap { it.stats }
-        stats = previous17Weeks.nextStartOfWeek.getDays(Date()).map { day ->
+        stats = start.nextStartOfWeek.getDays(end).map { day ->
             raw.filter { it.day.asString == day.asString }.fold(Stats(day, 0)) { acc, stats ->
                 Stats(acc.day, acc.value + stats.value)
             }

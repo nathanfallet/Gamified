@@ -7,6 +7,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Gamified">
+        <receiver
+            android:name="StatsWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/stats_widget_info" />
+        </receiver>
+
+        <service
+            android:name="me.nathanfallet.gamified.services.StatsWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <activity
             android:name="me.nathanfallet.gamified.activities.StatsActivity"
             android:exported="false" />
