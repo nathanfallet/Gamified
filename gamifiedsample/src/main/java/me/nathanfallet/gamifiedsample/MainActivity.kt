@@ -1,6 +1,8 @@
 package me.nathanfallet.gamifiedsample
 
 import android.content.Intent
+import android.content.SharedPreferences
+import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -8,19 +10,24 @@ import me.nathanfallet.gamified.activities.StatsActivity
 import me.nathanfallet.gamified.models.Counter
 import me.nathanfallet.gamified.models.RegisteredAchievement
 import me.nathanfallet.gamified.models.RegisteredStats
-import me.nathanfallet.gamified.services.DailyStorageService
 import me.nathanfallet.gamified.services.GamifiedService
-import me.nathanfallet.gamified.services.GlobalStorageService
-import java.util.Date
+import me.nathanfallet.gamified.services.SQLiteDailyStorageService
+import me.nathanfallet.gamified.services.SharedPreferencesGlobalStorageService
 
-class MainActivity : AppCompatActivity(), GlobalStorageService, DailyStorageService {
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sqlHelper: SQLiteOpenHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        sharedPreferences = getSharedPreferences("gamified", MODE_PRIVATE)
+        sqlHelper = TestDatabase(this)
+
         GamifiedService.shared = GamifiedService(
-            this,
-            this,
+            SharedPreferencesGlobalStorageService(sharedPreferences),
+            SQLiteDailyStorageService(sqlHelper),
             listOf(
                 RegisteredStats("test", "Test")
             ),
@@ -44,30 +51,11 @@ class MainActivity : AppCompatActivity(), GlobalStorageService, DailyStorageServ
             )
             startActivity(intent)
         }
-    }
 
-    override fun setupValue(key: String) {
-
-    }
-
-    override fun getValue(key: String, date: Date): Long {
-        return 0
-    }
-
-    override fun getValues(key: String, startDate: Date, endDate: Date): Map<Date, Long> {
-        return mapOf()
-    }
-
-    override fun setValue(key: String, value: Long, date: Date) {
-
-    }
-
-    override fun getValue(key: String): Long {
-        return 0
-    }
-
-    override fun setValue(key: String, value: Long) {
-
+        findViewById<Button>(R.id.button_increment).setOnClickListener {
+            GamifiedService.shared.incrementStats("test", 1)
+            GamifiedService.shared.incrementValue("test", 1)
+        }
     }
 
 }

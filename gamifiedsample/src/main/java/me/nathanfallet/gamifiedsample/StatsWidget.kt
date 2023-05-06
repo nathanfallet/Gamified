@@ -4,16 +4,21 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.database.sqlite.SQLiteOpenHelper
 import android.widget.RemoteViews
+import androidx.appcompat.app.AppCompatActivity
 import me.nathanfallet.gamified.models.RegisteredAchievement
 import me.nathanfallet.gamified.models.RegisteredStats
-import me.nathanfallet.gamified.services.DailyStorageService
 import me.nathanfallet.gamified.services.GamifiedService
-import me.nathanfallet.gamified.services.GlobalStorageService
+import me.nathanfallet.gamified.services.SQLiteDailyStorageService
+import me.nathanfallet.gamified.services.SharedPreferencesGlobalStorageService
 import me.nathanfallet.gamified.services.StatsWidgetService
-import java.util.Date
 
-class StatsWidget : AppWidgetProvider(), GlobalStorageService, DailyStorageService {
+class StatsWidget : AppWidgetProvider() {
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sqlHelper: SQLiteOpenHelper
 
     override fun onUpdate(
         context: Context,
@@ -27,10 +32,19 @@ class StatsWidget : AppWidgetProvider(), GlobalStorageService, DailyStorageServi
     }
 
     override fun onEnabled(context: Context) {
+        // Init services
+        if (!this::sharedPreferences.isInitialized) {
+            sharedPreferences =
+                context.getSharedPreferences("gamified", AppCompatActivity.MODE_PRIVATE)
+        }
+        if (!this::sqlHelper.isInitialized) {
+            sqlHelper = TestDatabase(context)
+        }
+
         // Enter relevant functionality for when the first widget is created
         GamifiedService.shared = GamifiedService(
-            this,
-            this,
+            SharedPreferencesGlobalStorageService(sharedPreferences),
+            SQLiteDailyStorageService(sqlHelper),
             listOf(
                 RegisteredStats("test", "Test")
             ),
@@ -42,30 +56,6 @@ class StatsWidget : AppWidgetProvider(), GlobalStorageService, DailyStorageServi
 
     override fun onDisabled(context: Context) {
         // Enter relevant functionality for when the last widget is disabled
-    }
-
-    override fun setupValue(key: String) {
-
-    }
-
-    override fun getValue(key: String, date: Date): Long {
-        return 0
-    }
-
-    override fun getValues(key: String, startDate: Date, endDate: Date): Map<Date, Long> {
-        return mapOf()
-    }
-
-    override fun setValue(key: String, value: Long, date: Date) {
-
-    }
-
-    override fun getValue(key: String): Long {
-        return 0
-    }
-
-    override fun setValue(key: String, value: Long) {
-
     }
 
 }
