@@ -28,6 +28,9 @@
             android:name="me.nathanfallet.gamified.activities.StatsActivity"
             android:exported="false" />
         <activity
+            android:name="me.nathanfallet.gamified.activities.GameProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

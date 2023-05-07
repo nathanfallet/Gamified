@@ -30,6 +30,7 @@ import me.nathanfallet.gamified.models.Stats
 import me.nathanfallet.gamified.viewmodels.StatsViewModel
 import me.nathanfallet.gamified.views.ExpandableHeightGridView
 import me.nathanfallet.gamified.views.GridAutoFitLayoutManager
+import me.nathanfallet.gamified.views.HeaderRecyclerViewAdapter
 import java.util.Date
 
 class StatsActivity : AppCompatActivity() {
@@ -126,50 +127,6 @@ class StatsActivity : AppCompatActivity() {
         }
     }
 
-    inner class HeaderRecyclerViewAdapter(
-        private val title: Int,
-        private val subtitle: Int? = null
-    ) : RecyclerView.Adapter<HeaderRecyclerViewAdapter.HeaderViewHolder>() {
-
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-        ): HeaderViewHolder {
-            val root =
-                LayoutInflater.from(parent.context).inflate(R.layout.header_title, parent, false)
-            return HeaderViewHolder(root)
-        }
-
-        override fun onBindViewHolder(
-            holder: HeaderViewHolder,
-            position: Int
-        ) {
-            holder.bind()
-        }
-
-        override fun getItemCount(): Int {
-            return 1
-        }
-
-        inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-            private val headerTitle: TextView = itemView.findViewById(R.id.title)
-            private val headerSubtitle: TextView = itemView.findViewById(R.id.subtitle)
-
-            fun bind() {
-                headerTitle.setText(title)
-                subtitle?.let { subtitle ->
-                    headerSubtitle.setText(subtitle)
-                    headerSubtitle.visibility = View.VISIBLE
-                } ?: run {
-                    headerSubtitle.visibility = View.GONE
-                }
-            }
-
-        }
-
-    }
-
     inner class CountersRecyclerViewAdapter(private val viewModel: StatsViewModel) :
         RecyclerView.Adapter<CountersRecyclerViewAdapter.CounterViewHolder>() {
 
@@ -187,9 +144,7 @@ class StatsActivity : AppCompatActivity() {
             position: Int
         ) {
             holder.bind(
-                viewModel.counters[position].text,
-                viewModel.counters[position].icon,
-                viewModel.counters[position].count
+                viewModel.counters[position]
             )
         }
 
@@ -202,9 +157,9 @@ class StatsActivity : AppCompatActivity() {
             private val iconView: ImageView = itemView.findViewById(R.id.icon)
             private val titleView: TextView = itemView.findViewById(R.id.title)
 
-            fun bind(text: String, icon: Int, value: Long) {
-                iconView.setImageResource(icon)
-                titleView.text = text.format(value)
+            fun bind(counter: Counter) {
+                iconView.setImageResource(counter.icon)
+                titleView.text = counter.text.format(counter.count)
             }
 
         }

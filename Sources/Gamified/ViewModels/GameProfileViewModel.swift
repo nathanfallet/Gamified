@@ -14,8 +14,9 @@ class GameProfileViewModel: ObservableObject {
     let service: GamifiedService
     let username: String?
     let url: URL?
-    let experience: Experience
-    let achievements: [Achievement]
+    
+    @Published var experience: Experience
+    @Published var achievements: [Achievement]
     
     // Initializer
     
@@ -25,8 +26,18 @@ class GameProfileViewModel: ObservableObject {
         self.service = service
         self.username = nil
         self.url = nil
-        self.experience = service.getExperience()
-        self.achievements = service.getAchievements()
+        self.experience = Experience(total: 0)
+        self.achievements = []
+        DispatchQueue.global().async {
+            let experienceData = service.getExperience()
+            DispatchQueue.main.async {
+                self.experience = experienceData
+            }
+            let achievementsData = service.getAchievements()
+            DispatchQueue.main.async {
+                self.achievements = achievementsData
+            }
+        }
     }
     
 }

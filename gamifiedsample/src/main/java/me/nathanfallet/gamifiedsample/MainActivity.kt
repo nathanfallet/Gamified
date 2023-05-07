@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import me.nathanfallet.gamified.activities.GameProfileActivity
 import me.nathanfallet.gamified.activities.StatsActivity
 import me.nathanfallet.gamified.models.Counter
 import me.nathanfallet.gamified.models.RegisteredAchievement
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 RegisteredStats("test", "Test")
             ),
             listOf(
-                RegisteredAchievement("test", "test", R.drawable.ic_launcher_foreground, 10, 10)
+                RegisteredAchievement("test", "Test", R.drawable.ic_launcher_foreground, 10, 10)
             )
         )
 
@@ -51,10 +52,16 @@ class MainActivity : AppCompatActivity() {
             )
             startActivity(intent)
         }
+        findViewById<Button>(R.id.button_profile).setOnClickListener {
+            startActivity(Intent(this, GameProfileActivity::class.java))
+        }
 
         findViewById<Button>(R.id.button_increment).setOnClickListener {
             GamifiedService.shared.incrementStats("test", 1)
             GamifiedService.shared.incrementValue("test", 1)
+        }
+        findViewById<Button>(R.id.button_experience).setOnClickListener {
+            GamifiedService.shared.gainExperience(5)
         }
     }
 

@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import me.nathanfallet.gamified.extensions.previous17Weeks
 import me.nathanfallet.gamified.models.Counter
 import me.nathanfallet.gamified.models.Graph
@@ -18,7 +20,7 @@ class StatsViewModel(
 
     // Configuration
 
-    private var graphs = MutableLiveData<List<Graph>>()
+    private val graphs = MutableLiveData<List<Graph>>()
 
     // Getters
 
@@ -29,7 +31,9 @@ class StatsViewModel(
     // Initializer
 
     init {
-        graphs.value = GamifiedService.shared.getGraphs(previous17Weeks, Date())
+        viewModelScope.launch {
+            graphs.value = GamifiedService.shared.getGraphs(previous17Weeks, Date())
+        }
     }
 
 
