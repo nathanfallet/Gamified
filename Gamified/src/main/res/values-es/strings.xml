@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_grid">Cuadro</string>
+    <string name="stats_grid_description">Muestra un resumen de tu actividad.</string>
+    <string name="stats_counts">Sumas</string>
+    <string name="stats">Estadísticas</string>
+    <string name="banner_achievement_unlocked">Logro ganado</string>
+    <string name="banner_experience_gained">¡Experiencia ganada!</string>
+    <string name="banner_experience_gained_level">Nivel %d</string>
+    <string name="stats_graph_no_data">No dato</string>
+    <string name="stats_graphs">Gráfico</string>
+    <string name="profile_achievements">Logros</string>
+    <string name="profile">Perfil de juego</string>
+</resources>
