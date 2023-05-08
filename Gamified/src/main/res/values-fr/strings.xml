@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="stats_grid">Grille</string>
+    <string name="stats_grid_description">Affiche une vue d\'ensemble de ton activité récente.</string>
+    <string name="stats_counts">Compteurs</string>
+    <string name="stats">Statistiques</string>
+    <string name="banner_achievement_unlocked">Trophé débloqué</string>
+    <string name="banner_experience_gained">Expérience gagnée !</string>
+    <string name="banner_experience_gained_level">Niveau %d</string>
+    <string name="stats_graph_no_data">Pas de données</string>
+    <string name="stats_graphs">Graphiques</string>
+    <string name="profile_achievements">Trophés</string>
+    <string name="profile">Profil de jeu</string>
+</resources>
