@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'me.nathanfallet.gamified:gamified:1.0.0'
+    implementation 'me.nathanfallet.gamified:gamified:1.1.1'
 }
 ```
 
