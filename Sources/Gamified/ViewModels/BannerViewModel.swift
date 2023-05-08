@@ -74,7 +74,7 @@ class BannerViewModel: ObservableObject {
             if self.progressBarLevel != newExperience?.level && Int(self.progressBarValue ?? 0) >= previousExperience?.toNextLevel ?? 0 {
                 self.progressBarValue = 0
                 self.progressBarTotal = Double(newExperience?.toNextLevel ?? 0)
-                self.progressBarLevel = (self.progressBarLevel ?? 0) + 1
+                self.progressBarLevel = newExperience?.level
             }
             
             // Check if we are done

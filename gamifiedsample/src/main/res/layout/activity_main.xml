@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button_stats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stats" />
+
+    <Button
+        android:id="@+id/button_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile" />
+
+    <Button
+        android:id="@+id/button_increment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Increment test" />
+
+    <Button
+        android:id="@+id/button_experience"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+5 exp" />
+
+</LinearLayout>

@@ -13,8 +13,9 @@ class StatsViewModel: ObservableObject {
     
     let service: GamifiedService
     let counters: [Counter]
-    let graphs: [Graph]
     let isGridEnabled: Bool
+    
+    @Published var graphs: [Graph]
     
     // Initializer
     
@@ -26,7 +27,13 @@ class StatsViewModel: ObservableObject {
         self.service = service
         self.counters = counters
         self.isGridEnabled = isGridEnabled
-        self.graphs = service.getGraphs(startDate: .previous17Weeks, endDate: Date())
+        self.graphs = []
+        DispatchQueue.global().async {
+            let graphsData = service.getGraphs(startDate: .previous17Weeks, endDate: Date())
+            DispatchQueue.main.async {
+                self.graphs = graphsData
+            }
+        }
     }
     
 }

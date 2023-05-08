@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AppWidgetContainer" parent="Theme.AppWidgetContainerParent">
+        <item name="appWidgetPadding">16dp</item>
+        <item name="colorOnPrimary">@color/black</item>
+    </style>
+</resources>
