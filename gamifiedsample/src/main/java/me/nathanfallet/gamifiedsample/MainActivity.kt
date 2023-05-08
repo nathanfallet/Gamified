@@ -18,7 +18,7 @@ import me.nathanfallet.gamified.views.BannerView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var bannerView: BannerView
+    private val bannerView = BannerView(this)
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var sqlHelper: SQLiteOpenHelper
 
@@ -68,14 +68,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        bannerView = BannerView(this)
+    override fun onResume() {
+        super.onResume()
         bannerView.register()
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         bannerView.unregister()
     }
 
