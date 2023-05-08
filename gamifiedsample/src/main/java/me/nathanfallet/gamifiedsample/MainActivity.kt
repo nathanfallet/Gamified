@@ -14,9 +14,11 @@ import me.nathanfallet.gamified.models.RegisteredStats
 import me.nathanfallet.gamified.services.GamifiedService
 import me.nathanfallet.gamified.services.SQLiteDailyStorageService
 import me.nathanfallet.gamified.services.SharedPreferencesGlobalStorageService
+import me.nathanfallet.gamified.views.BannerView
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var bannerView: BannerView
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var sqlHelper: SQLiteOpenHelper
 
@@ -57,12 +59,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.button_increment).setOnClickListener {
+            GamifiedService.shared.setValue("test", 9)
             GamifiedService.shared.incrementStats("test", 1)
             GamifiedService.shared.incrementValue("test", 1)
         }
         findViewById<Button>(R.id.button_experience).setOnClickListener {
             GamifiedService.shared.gainExperience(5)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        bannerView = BannerView(this)
+        bannerView.register()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        bannerView.unregister()
     }
 
 }

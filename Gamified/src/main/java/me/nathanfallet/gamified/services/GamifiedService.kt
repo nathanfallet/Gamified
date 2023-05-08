@@ -1,11 +1,14 @@
 package me.nathanfallet.gamified.services
 
+import me.nathanfallet.gamified.events.AchievementUnlockedEvent
+import me.nathanfallet.gamified.events.ExperienceGainedEvent
 import me.nathanfallet.gamified.models.Achievement
 import me.nathanfallet.gamified.models.Experience
 import me.nathanfallet.gamified.models.Graph
 import me.nathanfallet.gamified.models.RegisteredAchievement
 import me.nathanfallet.gamified.models.RegisteredStats
 import me.nathanfallet.gamified.models.Stats
+import org.greenrobot.eventbus.EventBus
 import java.util.Date
 
 class GamifiedService(
@@ -144,7 +147,7 @@ class GamifiedService(
         registeredAchievements.filter {
             key == it.key && previousValue < it.target && newValue >= it.target
         }.forEach { achievement ->
-            // TODO: Notify achievement
+            EventBus.getDefault().post(AchievementUnlockedEvent(achievement))
             gainExperience(achievement.experience)
         }
     }
@@ -177,7 +180,7 @@ class GamifiedService(
         val previousExperience = getExperience()
         val newExperience = Experience(previousExperience.total + exp)
         setValue("internal_experience", newExperience.total)
-        // TODO: Notify experience
+        EventBus.getDefault().post(ExperienceGainedEvent(previousExperience, newExperience))
 
         return Pair(previousExperience, newExperience)
     }

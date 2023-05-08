@@ -28,8 +28,8 @@ public struct BannerViewModifier: ViewModifier {
                                 Text(LocalizedStringKey("banner_experience_gained_level \(viewModel.progressBarLevel ?? 0)"), bundle: .module)
                             }
                             ProgressView(
-                                value: Double(viewModel.progressBarValue ?? 0),
-                                total: Double(viewModel.progressBarTotal ?? 0)
+                                value: viewModel.progressBarValue ?? 0,
+                                total: viewModel.progressBarTotal ?? 0
                             )
                         case "achievementUnlocked":
                             HStack {
