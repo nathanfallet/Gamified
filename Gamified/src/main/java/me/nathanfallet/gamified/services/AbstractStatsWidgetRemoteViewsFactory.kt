@@ -1,7 +1,6 @@
 package me.nathanfallet.gamified.services
 
 import android.content.Context
-import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.content.ContextCompat
@@ -13,15 +12,7 @@ import me.nathanfallet.gamified.extensions.previous7Weeks
 import me.nathanfallet.gamified.models.Stats
 import java.util.Date
 
-class StatsWidgetService : RemoteViewsService() {
-
-    override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
-        return StatsWidgetRemoteViewsFactory(applicationContext)
-    }
-
-}
-
-class StatsWidgetRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
+abstract class AbstractStatsWidgetRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
 
     private val rows = 7
     private val columns: Int
@@ -31,11 +22,15 @@ class StatsWidgetRemoteViewsFactory(val context: Context) : RemoteViewsService.R
 
     var stats: List<Stats> = listOf()
 
+    abstract fun initializeGamifiedServiceIfNeeded()
+
     override fun onCreate() {
         // Nothing
     }
 
     override fun onDataSetChanged() {
+        initializeGamifiedServiceIfNeeded()
+
         val start = previous7Weeks
         val end = Date()
 
