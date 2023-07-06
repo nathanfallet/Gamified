@@ -110,7 +110,7 @@ class StatsActivity : AppCompatActivity() {
         }
 
         // Create observers
-        viewModel.getGraphs().observe(this) {
+        viewModel.graphs.observe(this) {
             gridsAdapter.notifyItemChanged(0)
             graphsAdapter.notifyDataSetChanged()
         }
@@ -120,9 +120,8 @@ class StatsActivity : AppCompatActivity() {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -209,7 +208,7 @@ class StatsActivity : AppCompatActivity() {
                     }
 
                 init {
-                    val raw = viewModel.getGraphs().value?.flatMap { it.stats } ?: listOf()
+                    val raw = viewModel.graphs.value?.flatMap { it.stats } ?: listOf()
                     stats = previous17Weeks.nextStartOfWeek.getDays(Date()).map { day ->
                         raw.filter { it.day.asString == day.asString }
                             .fold(Stats(day, 0)) { acc, stats ->
@@ -288,11 +287,11 @@ class StatsActivity : AppCompatActivity() {
             holder: GraphViewHolder,
             position: Int
         ) {
-            holder.bind(viewModel.getGraphs().value?.get(position)!!)
+            holder.bind(viewModel.graphs.value?.get(position)!!)
         }
 
         override fun getItemCount(): Int {
-            return viewModel.getGraphs().value?.size ?: 0
+            return viewModel.graphs.value?.size ?: 0
         }
 
         inner class GraphViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

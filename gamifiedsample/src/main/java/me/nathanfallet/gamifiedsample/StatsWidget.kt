@@ -4,21 +4,9 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.database.sqlite.SQLiteOpenHelper
 import android.widget.RemoteViews
-import androidx.appcompat.app.AppCompatActivity
-import me.nathanfallet.gamified.models.RegisteredAchievement
-import me.nathanfallet.gamified.models.RegisteredStats
-import me.nathanfallet.gamified.services.GamifiedService
-import me.nathanfallet.gamified.services.SQLiteDailyStorageService
-import me.nathanfallet.gamified.services.SharedPreferencesGlobalStorageService
-import me.nathanfallet.gamified.services.StatsWidgetService
 
 class StatsWidget : AppWidgetProvider() {
-
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var sqlHelper: SQLiteOpenHelper
 
     override fun onUpdate(
         context: Context,
@@ -32,26 +20,7 @@ class StatsWidget : AppWidgetProvider() {
     }
 
     override fun onEnabled(context: Context) {
-        // Init services
-        if (!this::sharedPreferences.isInitialized) {
-            sharedPreferences =
-                context.getSharedPreferences("gamified", AppCompatActivity.MODE_PRIVATE)
-        }
-        if (!this::sqlHelper.isInitialized) {
-            sqlHelper = TestDatabase(context)
-        }
-
         // Enter relevant functionality for when the first widget is created
-        GamifiedService.shared = GamifiedService(
-            SharedPreferencesGlobalStorageService(sharedPreferences),
-            SQLiteDailyStorageService(sqlHelper),
-            listOf(
-                RegisteredStats("test", "Test")
-            ),
-            listOf(
-                RegisteredAchievement("test", "test", R.drawable.ic_launcher_foreground, 10, 10)
-            )
-        )
     }
 
     override fun onDisabled(context: Context) {

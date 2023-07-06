@@ -70,10 +70,10 @@ class GameProfileActivity : AppCompatActivity() {
         }
 
         // Create observers
-        viewModel.getExperience().observe(this) {
+        viewModel.experience.observe(this) {
             experienceAdapter.notifyItemChanged(0)
         }
-        viewModel.getAchievements().observe(this) {
+        viewModel.achievements.observe(this) {
             achievementsAdapter.notifyDataSetChanged()
         }
     }
@@ -82,9 +82,8 @@ class GameProfileActivity : AppCompatActivity() {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -142,7 +141,7 @@ class GameProfileActivity : AppCompatActivity() {
                 }
 
                 // Get experience
-                val experience = viewModel.getExperience().value ?: return
+                val experience = viewModel.experience.value ?: return
                 levelView.text =
                     getString(R.string.banner_experience_gained_level, experience.level)
                 progressBar.progress = experience.current.toInt()
@@ -200,12 +199,12 @@ class GameProfileActivity : AppCompatActivity() {
             position: Int
         ) {
             holder.bind(
-                viewModel.getAchievements().value!![position]
+                viewModel.achievements.value!![position]
             )
         }
 
         override fun getItemCount(): Int {
-            return viewModel.getAchievements().value?.size ?: 0
+            return viewModel.achievements.value?.size ?: 0
         }
 
         inner class AchievementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

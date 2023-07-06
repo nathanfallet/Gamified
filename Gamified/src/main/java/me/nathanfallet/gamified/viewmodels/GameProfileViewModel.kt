@@ -18,25 +18,19 @@ class GameProfileViewModel(
 
     val username: String? = null
     val url: String? = null
-    private val experience = MutableLiveData<Experience>()
-    private val achievements = MutableLiveData<List<Achievement>>()
 
-    // Getters
+    private val _experience = MutableLiveData<Experience>()
+    val experience: LiveData<Experience> = _experience
 
-    fun getExperience(): LiveData<Experience> {
-        return experience
-    }
-
-    fun getAchievements(): LiveData<List<Achievement>> {
-        return achievements
-    }
+    private val _achievements = MutableLiveData<List<Achievement>>()
+    val achievements: LiveData<List<Achievement>> = _achievements
 
     // Initializer
 
     init {
         viewModelScope.launch {
-            experience.value = GamifiedService.shared.getExperience()
-            achievements.value = GamifiedService.shared.getAchievements()
+            _experience.value = GamifiedService.shared.getExperience()
+            _achievements.value = GamifiedService.shared.getAchievements()
         }
     }
 

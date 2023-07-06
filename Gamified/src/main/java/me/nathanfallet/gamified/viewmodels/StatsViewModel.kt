@@ -20,19 +20,14 @@ class StatsViewModel(
 
     // Configuration
 
-    private val graphs = MutableLiveData<List<Graph>>()
-
-    // Getters
-
-    fun getGraphs(): LiveData<List<Graph>> {
-        return graphs
-    }
+    private val _graphs = MutableLiveData<List<Graph>>()
+    val graphs: LiveData<List<Graph>> = _graphs
 
     // Initializer
 
     init {
         viewModelScope.launch {
-            graphs.value = GamifiedService.shared.getGraphs(previous17Weeks, Date())
+            _graphs.value = GamifiedService.shared.getGraphs(previous17Weeks, Date())
         }
     }
 
